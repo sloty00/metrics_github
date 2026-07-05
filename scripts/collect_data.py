@@ -41,15 +41,18 @@ def get_data():
     total_stars = 0
     total_forks = 0
     total_commits = 0
-    languages = set()
+    lenguajes_map = {}
     
     if isinstance(repos, list):
         for r in repos:
             total_stars += r.get('stargazers_count', 0)
             total_forks += r.get('forks_count', 0)
             total_commits += get_repo_commits(r.get('name'))
-            if r.get('language'):
-                languages.add(r.get('language'))
+            
+            # Conteo de proyectos por lenguaje
+            lang = r.get('language')
+            if lang:
+                lenguajes_map[lang] = lenguajes_map.get(lang, 0) + 1
     
     metrics = {
         "seguidores": user.get('followers', 0),
@@ -59,7 +62,7 @@ def get_data():
         "issues_creados": get_issue_count(),
         "total_commits": total_commits,
         "antiguedad": antiguedad,
-        "lenguajes_utilizados": list(languages),
+        "proyectos_por_lenguaje": lenguajes_map,
         "ultima_actualizacion": user.get('updated_at')
     }
     
