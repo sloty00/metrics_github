@@ -1,1 +1,6 @@
-
+{
+  "estado": "Inicializando sistema...",
+  "resiliencia": "0",
+  "seguridad": "Pendiente",
+  "commits": "0"
+}
