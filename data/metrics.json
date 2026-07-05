@@ -1,10 +1,17 @@
 {
-    "resiliencia": {
-        "valor": 12,
-        "etiqueta": "Servicios Desacoplados"
-    },
-    "commits_totales": 0,
-    "repos_activos": 0,
-    "followers": 0,
-    "fecha": "2026-07-04"
+    "seguidores": 3,
+    "total_repos": 56,
+    "estrellas_recibidas": 61,
+    "forks_totales": 1,
+    "lenguajes_utilizados": [
+        "JavaScript",
+        "TypeScript",
+        "C++",
+        "Python",
+        "PHP",
+        "HTML",
+        "SCSS",
+        "Java"
+    ],
+    "ultima_actualizacion": "2026-06-25T12:44:06Z"
 }
