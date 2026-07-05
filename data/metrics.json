@@ -5,14 +5,14 @@
     "forks_totales": 1,
     "issues_creados": 49,
     "lenguajes_utilizados": [
+        "SCSS",
+        "Python",
+        "HTML",
+        "JavaScript",
+        "C++",
         "TypeScript",
         "PHP",
-        "JavaScript",
-        "Python",
-        "Java",
-        "C++",
-        "HTML",
-        "SCSS"
+        "Java"
     ],
     "ultima_actualizacion": "2026-06-25T12:44:06Z"
 }
