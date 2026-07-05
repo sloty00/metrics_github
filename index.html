@@ -5,13 +5,19 @@
     <title>Métricas sloty00</title>
     <style>
         body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
+        h1 { color: #333; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .stat-card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .stat-card:hover { transform: scale(1.02); }
+        .stat-card h3 { font-size: 0.8rem; color: #666; margin-bottom: 0.5rem; }
+        .stat-card p { font-size: 1.2rem; font-weight: bold; color: #222; margin: 0; }
     </style>
 </head>
 <body>
     <h1>Dashboard de Métricas</h1>
-    <div id="dashboard-container" class="stats-grid">Cargando métricas...</div>
+    <!-- El script inyectará las tarjetas aquí -->
+    <div id="dashboard-container" class="stats-grid">Cargando datos desde GitHub...</div>
+    
     <script src="app.js"></script>
 </body>
 </html>
