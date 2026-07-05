@@ -4,14 +4,14 @@
     "estrellas_recibidas": 61,
     "forks_totales": 1,
     "lenguajes_utilizados": [
-        "C++",
-        "PHP",
-        "HTML",
-        "SCSS",
-        "JavaScript",
-        "Python",
         "TypeScript",
-        "Java"
+        "SCSS",
+        "PHP",
+        "C++",
+        "JavaScript",
+        "Java",
+        "HTML",
+        "Python"
     ],
     "ultima_actualizacion": "2026-06-25T12:44:06Z"
 }
