@@ -2,12 +2,11 @@ import requests
 import json
 import os
 
-# Usamos tu token secreto configurado
+# Usamos el token configurado como secreto en el repositorio
 token = os.environ.get('GITHUB_TOKEN')
 headers = {'Authorization': f'token {token}', 'Accept': 'application/vnd.github.v3+json'}
 
 def get_issue_count():
-    # Busca todos los issues creados por ti en todo GitHub
     url = 'https://api.github.com/search/issues?q=author:sloty00+is:issue'
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
@@ -42,7 +41,10 @@ def get_data():
         "ultima_actualizacion": user.get('updated_at')
     }
     
-    os.makedirs('data', exist_ok=True)
+    # Crear carpeta data si no existe
+    if not os.path.exists('data'):
+        os.makedirs('data')
+        
     with open('data/metrics.json', 'w') as f:
         json.dump(metrics, f, indent=4)
 
