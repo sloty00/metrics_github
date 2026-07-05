@@ -10,13 +10,20 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+      
       - name: Set up Python
         uses: actions/setup-python@v4
-        with: { python-version: '3.x' }
+        with: 
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: pip install requests
+        
       - name: Run collector script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/collect_data.py
+        
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
