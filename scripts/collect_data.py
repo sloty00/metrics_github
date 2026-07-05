@@ -2,22 +2,24 @@ import requests
 import json
 import os
 
+# Usamos tu token secreto configurado
 token = os.environ.get('GITHUB_TOKEN')
 headers = {'Authorization': f'token {token}', 'Accept': 'application/vnd.github.v3+json'}
 
+def get_issue_count():
+    # Busca todos los issues creados por ti en todo GitHub
+    url = 'https://api.github.com/search/issues?q=author:sloty00+is:issue'
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json().get('total_count', 0)
+    return 0
+
 def get_data():
-
     user_resp = requests.get('https://api.github.com/user', headers=headers)
-    if user_resp.status_code != 200:
-        print(f"Error al obtener usuario: {user_resp.status_code}")
-        return
-    user = user_resp.json()
-
+    user = user_resp.json() if user_resp.status_code == 200 else {}
+    
     repos_resp = requests.get('https://api.github.com/user/repos?per_page=100&sort=updated', headers=headers)
-    if repos_resp.status_code != 200:
-        print(f"Error al obtener repositorios: {repos_resp.status_code}")
-        return
-    repos = repos_resp.json()
+    repos = repos_resp.json() if repos_resp.status_code == 200 else []
     
     total_stars = 0
     total_forks = 0
@@ -25,24 +27,22 @@ def get_data():
     
     if isinstance(repos, list):
         for r in repos:
-            if isinstance(r, dict):
-                total_stars += r.get('stargazers_count', 0)
-                total_forks += r.get('forks_count', 0)
-                lang = r.get('language')
-                if lang:
-                    languages.add(lang)
+            total_stars += r.get('stargazers_count', 0)
+            total_forks += r.get('forks_count', 0)
+            if r.get('language'):
+                languages.add(r.get('language'))
     
     metrics = {
         "seguidores": user.get('followers', 0),
         "total_repos": user.get('public_repos', 0),
         "estrellas_recibidas": total_stars,
         "forks_totales": total_forks,
+        "issues_creados": get_issue_count(),
         "lenguajes_utilizados": list(languages),
         "ultima_actualizacion": user.get('updated_at')
     }
     
     os.makedirs('data', exist_ok=True)
-    
     with open('data/metrics.json', 'w') as f:
         json.dump(metrics, f, indent=4)
 
