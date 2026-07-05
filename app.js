@@ -26,7 +26,7 @@ async function cargarDashboard() {
 
             return `
                 <div class="stat-card">
-                    <h3>${key.replace('_', ' ').toUpperCase()}</h3>
+                    <h3>${key.replace(/_/g, ' ').toUpperCase()}</h3>
                     <p>${displayValue}</p>
                 </div>
             `;
