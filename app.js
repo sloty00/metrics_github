@@ -7,7 +7,7 @@ async function cargarDashboard() {
         container.innerHTML = Object.entries(metrics).map(([key, value]) => `
             <div class="stat-card">
                 <h3>${key.replace('_', ' ').toUpperCase()}</h3>
-                <p>${value.valor || value}</p>
+                <p>${Array.isArray(value) ? value.join(', ') : value}</p>
             </div>
         `).join('');
     } catch (e) {
