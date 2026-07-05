@@ -4,15 +4,16 @@
     "estrellas_recibidas": 61,
     "forks_totales": 1,
     "issues_creados": 49,
+    "total_commits": 3484,
     "lenguajes_utilizados": [
         "JavaScript",
-        "C++",
-        "Java",
-        "TypeScript",
         "Python",
-        "PHP",
+        "C++",
         "HTML",
-        "SCSS"
+        "SCSS",
+        "TypeScript",
+        "PHP",
+        "Java"
     ],
     "ultima_actualizacion": "2026-06-25T12:44:06Z"
 }
