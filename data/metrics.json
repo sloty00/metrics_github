@@ -1,6 +1,10 @@
 {
-  "estado": "Inicializando sistema...",
-  "resiliencia": "0",
-  "seguridad": "Pendiente",
-  "commits": "0"
+    "resiliencia": {
+        "valor": 12,
+        "etiqueta": "Servicios Desacoplados"
+    },
+    "commits_totales": 0,
+    "repos_activos": 0,
+    "followers": 0,
+    "fecha": "2026-07-04"
 }
