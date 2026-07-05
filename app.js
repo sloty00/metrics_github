@@ -11,7 +11,7 @@ async function cargarDashboard() {
             </div>
         `).join('');
     } catch (e) {
-        document.getElementById('dashboard-container').innerText = "Esperando la primera actualización de métricas...";
+        document.getElementById('dashboard-container').innerText = "Esperando la primera actualización...";
     }
 }
 cargarDashboard();
