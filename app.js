@@ -1,11 +1,3 @@
-Entendido. Respetaremos estrictamente tu app.js actual (que ya funciona) y añadiremos la lógica de Chart.js sin borrar tus tarjetas de habilidades ni tus métricas generales.
-
-El secreto es inicializar los gráficos después de inyectar el HTML, asegurándonos de que los elementos <canvas> ya existan en el DOM.
-
-1. Modificación en app.js
-Añadiremos una función iniciarGraficos() al final de tu lógica:
-
-JavaScript
 async function cargarDashboard() {
     const container = document.getElementById('dashboard-container');
     
