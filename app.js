@@ -2,7 +2,6 @@ async function cargarDashboard() {
     const container = document.getElementById('dashboard-container');
     
     try {
-        // Carga ambos archivos en paralelo
         const [metricsRes, skillsRes] = await Promise.all([
             fetch('./data/metrics.json'),
             fetch('./data/skills.json')
@@ -11,7 +10,6 @@ async function cargarDashboard() {
         const metrics = await metricsRes.json();
         const skills = await skillsRes.json();
         
-        // --- 1. Renderizar Habilidades (Gráfico de barras) ---
         let htmlContent = `<h2>Habilidades Técnicas</h2>`;
         htmlContent += skills.data.map(item => {
             const barColor = item.type === 'language' ? '#007bff' : '#28a745';
@@ -28,7 +26,6 @@ async function cargarDashboard() {
             `;
         }).join('');
 
-        // --- 2. Renderizar Métricas Generales ---
         htmlContent += `<h2 style="margin-top: 2rem;">Métricas Generales</h2>`;
         htmlContent += Object.entries(metrics).map(([key, value]) => {
             if (key === 'proyectos_por_lenguaje' || key === 'data' || key === 'skills_dashboard') return ''; // Saltamos procesados
