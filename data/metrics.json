@@ -4,15 +4,15 @@
     "estrellas_recibidas": 61,
     "forks_totales": 1,
     "issues_creados": 49,
-    "total_commits": 3555,
+    "total_commits": 3557,
     "antiguedad": "9 a\u00f1os y 300 d\u00edas",
     "proyectos_por_lenguaje": {
-        "JavaScript": 27,
+        "JavaScript": 26,
         "C++": 9,
         "Java": 13,
         "HTML": 4,
         "PHP": 1,
-        "Python": 2,
+        "Python": 3,
         "TypeScript": 1,
         "SCSS": 1
     },
