@@ -9,11 +9,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # --- ESTA ES LA CORRECCIÓN CLAVE ---
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    # -----------------------------------
     permissions:
       contents: write
       pages: write
@@ -38,10 +36,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 1. Aseguramos el archivo recién generado en una carpeta temporal fuera de Git
+          cp data/metrics.json /tmp/metrics.json
+          
+          # 2. Descartamos el cambio local momentáneamente para poder hacer un pull limpio
+          git checkout data/metrics.json
+          
+          # 3. Traemos las actualizaciones del repositorio remoto de forma segura
+          git pull origin main
+          
+          # 4. Devolvemos nuestro archivo nuevo a su lugar, ganando siempre la versión más reciente
+          cp /tmp/metrics.json data/metrics.json
+          
+          # 5. Hacemos el commit y push si hay cambios reales respecto al remoto
           git add data/metrics.json
           if ! git diff --quiet --cached; then
             git commit -m "chore: auto-update metrics"
-            git pull --rebase origin main
             git push origin main
           fi
           
