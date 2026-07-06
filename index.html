@@ -1,3 +1,10 @@
+Entiendo perfectamente. Vamos a simplificarlo al máximo. No toques nada del app.js que ya te funcionaba bien.
+
+Para que esto quede perfecto, solo vamos a modificar el HTML. Vamos a colocar los espacios para los gráficos en la parte superior sin alterar la estructura que ya tenías abajo.
+
+Copia y pega este index.html completo. He mantenido absolutamente todo lo que tenías, solo agregué los <canvas> al principio:
+
+HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,7 +41,7 @@
     <h1>Dashboard de Métricas</h1>
     <h2>Metricas en tiempo real</h2>
 
-    <!-- Contenedores para los nuevos gráficos -->
+    <!-- Estos son los dos contenedores para los gráficos -->
     <div class="stats-grid" style="margin-bottom: 2rem;">
         <div class="stat-card">
             <h3>Habilidades (Progreso)</h3>
@@ -46,7 +53,7 @@
         </div>
     </div>
 
-    <!-- El script sigue inyectando las tarjetas aquí -->
+    <!-- El script inyectará las tarjetas aquí (tu lógica original) -->
     <div id="dashboard-container" class="stats-grid">Cargando datos desde GitHub...</div>
 
     <footer>
