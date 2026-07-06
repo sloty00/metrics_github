@@ -1,3 +1,11 @@
+Entendido. Respetaremos estrictamente tu app.js actual (que ya funciona) y añadiremos la lógica de Chart.js sin borrar tus tarjetas de habilidades ni tus métricas generales.
+
+El secreto es inicializar los gráficos después de inyectar el HTML, asegurándonos de que los elementos <canvas> ya existan en el DOM.
+
+1. Modificación en app.js
+Añadiremos una función iniciarGraficos() al final de tu lógica:
+
+JavaScript
 async function cargarDashboard() {
     const container = document.getElementById('dashboard-container');
     
@@ -10,6 +18,7 @@ async function cargarDashboard() {
         const metrics = await metricsRes.json();
         const skills = await skillsRes.json();
         
+        // --- TU LÓGICA EXISTENTE (NO SE BORRA NADA) ---
         let htmlContent = `<h2>Habilidades Técnicas</h2>`;
         htmlContent += skills.data.map(item => {
             const barColor = item.type === 'language' ? '#007bff' : '#28a745';
@@ -28,8 +37,7 @@ async function cargarDashboard() {
 
         htmlContent += `<h2 style="margin-top: 2rem;">Métricas Generales</h2>`;
         htmlContent += Object.entries(metrics).map(([key, value]) => {
-            if (key === 'proyectos_por_lenguaje' || key === 'data' || key === 'skills_dashboard') return ''; // Saltamos procesados
-            
+            if (key === 'proyectos_por_lenguaje' || key === 'data' || key === 'skills_dashboard') return ''; 
             return `
                 <div class="stat-card">
                     <h3>${key.replace(/_/g, ' ').toUpperCase()}</h3>
@@ -39,10 +47,25 @@ async function cargarDashboard() {
         }).join('');
 
         container.innerHTML = `<div class="stats-grid">${htmlContent}</div>`;
+
+        // --- NUEVA LÓGICA DE GRÁFICOS ---
+        const labels = skills.data.map(i => i.name);
+        const scores = skills.data.map(i => i.score);
+        
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Nivel (%)', data: scores, backgroundColor: '#36a2eb' }] },
+            options: { indexAxis: 'y', responsive: true }
+        });
+
+        new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: { labels, datasets: [{ data: scores, backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0'] }] },
+            options: { responsive: true }
+        });
         
     } catch (e) {
         container.innerHTML = `<p>Error al cargar los datos: ${e.message}</p>`;
     }
 }
-
 cargarDashboard();
