@@ -1,38 +1,51 @@
 async function cargarDashboard() {
+    const container = document.getElementById('dashboard-container');
+    
     try {
-        const response = await fetch('./data/metrics.json');
-        const metrics = await response.json();
-        const container = document.getElementById('dashboard-container');
+        // Carga ambos archivos en paralelo
+        const [metricsRes, skillsRes] = await Promise.all([
+            fetch('./data/metrics.json'),
+            fetch('./data/skills.json')
+        ]);
         
-        container.innerHTML = Object.entries(metrics).map(([key, value]) => {
-            let displayValue = value;
-            
-            // Si es el objeto de lenguajes, calculamos porcentajes
-            if (key === 'proyectos_por_lenguaje' && typeof value === 'object' && value !== null) {
-                const totalProyectos = Object.values(value).reduce((a, b) => a + b, 0);
-                displayValue = Object.entries(value)
-                    .map(([lang, count]) => {
-                        const porcentaje = ((count / totalProyectos) * 100).toFixed(1);
-                        return `${lang}: ${count} (${porcentaje}%)`;
-                    })
-                    .join('<br>');
-            } else if (Array.isArray(value)) {
-                displayValue = value.join(', ');
-            } else if (typeof value === 'object' && value !== null) {
-                displayValue = Object.entries(value)
-                    .map(([k, v]) => `${k}: ${v}`)
-                    .join('<br>');
-            }
-
+        const metrics = await metricsRes.json();
+        const skills = await skillsRes.json();
+        
+        // --- 1. Renderizar Habilidades (Gráfico de barras) ---
+        let htmlContent = `<h2>Habilidades Técnicas</h2>`;
+        htmlContent += skills.data.map(item => {
+            const barColor = item.type === 'language' ? '#007bff' : '#28a745';
             return `
                 <div class="stat-card">
-                    <h3>${key.replace(/_/g, ' ').toUpperCase()}</h3>
-                    <p>${displayValue}</p>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <strong>${item.name}</strong>
+                        <span>${item.score}%</span>
+                    </div>
+                    <div style="background: #e0e0e0; border-radius: 4px; height: 12px; width: 100%;">
+                        <div style="background: ${barColor}; height: 100%; width: ${item.score}%; border-radius: 4px;"></div>
+                    </div>
                 </div>
             `;
         }).join('');
+
+        // --- 2. Renderizar Métricas Generales ---
+        htmlContent += `<h2 style="margin-top: 2rem;">Métricas Generales</h2>`;
+        htmlContent += Object.entries(metrics).map(([key, value]) => {
+            if (key === 'proyectos_por_lenguaje' || key === 'data' || key === 'skills_dashboard') return ''; // Saltamos procesados
+            
+            return `
+                <div class="stat-card">
+                    <h3>${key.replace(/_/g, ' ').toUpperCase()}</h3>
+                    <p>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}</p>
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = `<div class="stats-grid">${htmlContent}</div>`;
+        
     } catch (e) {
-        document.getElementById('dashboard-container').innerText = "Esperando la primera actualización...";
+        container.innerHTML = `<p>Error al cargar los datos: ${e.message}</p>`;
     }
 }
+
 cargarDashboard();
