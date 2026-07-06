@@ -10,7 +10,6 @@ async function cargarDashboard() {
         const metrics = await metricsRes.json();
         const skills = await skillsRes.json();
         
-        // --- TU LÓGICA EXISTENTE (NO SE BORRA NADA) ---
         let htmlContent = `<h2>Habilidades Técnicas</h2>`;
         htmlContent += skills.data.map(item => {
             const barColor = item.type === 'language' ? '#007bff' : '#28a745';
@@ -40,24 +39,24 @@ async function cargarDashboard() {
 
         container.innerHTML = `<div class="stats-grid">${htmlContent}</div>`;
 
-        // --- NUEVA LÓGICA DE GRÁFICOS ---
         const labels = skills.data.map(i => i.name);
         const scores = skills.data.map(i => i.score);
         
         new Chart(document.getElementById('barChart'), {
             type: 'bar',
             data: { labels, datasets: [{ label: 'Nivel (%)', data: scores, backgroundColor: '#36a2eb' }] },
-            options: { indexAxis: 'y', responsive: true }
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
         });
 
         new Chart(document.getElementById('pieChart'), {
             type: 'pie',
             data: { labels, datasets: [{ data: scores, backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0'] }] },
-            options: { responsive: true }
+            options: { responsive: true, maintainAspectRatio: false }
         });
         
     } catch (e) {
         container.innerHTML = `<p>Error al cargar los datos: ${e.message}</p>`;
     }
 }
+
 cargarDashboard();
