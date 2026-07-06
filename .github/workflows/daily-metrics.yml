@@ -9,37 +9,51 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write
       pages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
+          
       - name: Install dependencies
         run: pip install requests
+        
       - name: Run collector
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         run: python scripts/collect_data.py
-      - name: Commit metrics
+        
+      - name: Commit and Push metrics
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Añadimos los cambios
           git add data/metrics.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update metrics" && git push)
+          
+          # Solo hacemos commit y push si hay cambios reales
+          if ! git diff --quiet --cached; then
+            git commit -m "chore: auto-update metrics"
+            
+            # El secreto para que no falle: pull --rebase
+            git pull --rebase origin main
+            git push origin main
+          fi
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.' 
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
