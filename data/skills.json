@@ -5,9 +5,9 @@
     { "name": "Java", "type": "language", "score": 80 },
     { "name": "SQL", "type": "language", "score": 80 },
     { "name": "Node.js", "type": "framework", "score": 80 },
-    { "name": "Python", "type": "language", "score": 70 },
-    { "name": "React", "type": "framework", "score": 60 },
-    { "name": "Angular", "type": "framework", "score": 30 },
-    { "name": "Go", "type": "language", "score": 30 }
+    { "name": "Python", "type": "language", "score": 90 },
+    { "name": "React", "type": "framework", "score": 70 },
+    { "name": "Angular", "type": "framework", "score": 50 },
+    { "name": "Go", "type": "language", "score": 40 }
   ]
 }
