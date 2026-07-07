@@ -10,8 +10,7 @@ async function cargarDashboard() {
         const metrics = await metricsRes.json();
         const skills = await skillsRes.json();
         
-        let htmlContent = `<h2>Habilidades Técnicas</h2>`;
-        htmlContent += skills.data.map(item => {
+        const skillsHtml = skills.data.map(item => {
             const barColor = item.type === 'language' ? '#007bff' : '#28a745';
             return `
                 <div class="stat-card">
@@ -26,18 +25,23 @@ async function cargarDashboard() {
             `;
         }).join('');
 
-        htmlContent += `<h2 style="margin-top: 2rem;">Métricas Generales</h2>`;
-        htmlContent += Object.entries(metrics).map(([key, value]) => {
-            if (key === 'proyectos_por_lenguaje' || key === 'data' || key === 'skills_dashboard') return ''; 
+        const metricsHtml = Object.entries(metrics).map(([key, value]) => {
+            if (['proyectos_por_lenguaje', 'data', 'skills_dashboard'].includes(key)) return '';
             return `
-                <div class="stat-card">
-                    <h3>${key.replace(/_/g, ' ').toUpperCase()}</h3>
+                <div class="stat-card-small">
+                    <span>${key.replace(/_/g, ' ')}</span>
                     <p>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}</p>
                 </div>
             `;
         }).join('');
 
-        container.innerHTML = `<div class="stats-grid">${htmlContent}</div>`;
+        container.innerHTML = `
+            <h3>Habilidades Técnicas</h3>
+            <div class="skills-grid">${skillsHtml}</div>
+            
+            <h3 style="margin-top: 3rem;">Métricas Generales</h3>
+            <div class="metrics-grid">${metricsHtml}</div>
+        `;
 
         const labels = skills.data.map(i => i.name);
         const scores = skills.data.map(i => i.score);
@@ -50,7 +54,7 @@ async function cargarDashboard() {
 
         new Chart(document.getElementById('pieChart'), {
             type: 'pie',
-            data: { labels, datasets: [{ data: scores, backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0'] }] },
+            data: { labels, datasets: [{ data: scores, backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'] }] },
             options: { responsive: true, maintainAspectRatio: false }
         });
         
