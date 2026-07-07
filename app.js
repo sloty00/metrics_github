@@ -10,6 +10,7 @@ async function cargarDashboard() {
         const metrics = await metricsRes.json();
         const skills = await skillsRes.json();
         
+        // 1. Generar HTML de Habilidades (Cuadrícula limpia)
         const skillsHtml = skills.data.map(item => {
             const barColor = item.type === 'language' ? '#007bff' : '#28a745';
             return `
@@ -25,16 +26,24 @@ async function cargarDashboard() {
             `;
         }).join('');
 
+        // 2. Generar HTML de Métricas (Incluyendo todo, incluso proyectos_por_lenguaje)
         const metricsHtml = Object.entries(metrics).map(([key, value]) => {
-            if (['proyectos_por_lenguaje', 'data', 'skills_dashboard'].includes(key)) return '';
+            if (['data', 'skills_dashboard'].includes(key)) return ''; 
+            
+            // Si el valor es un objeto (como proyectos_por_lenguaje), lo formateamos bonito
+            const displayValue = typeof value === 'object' 
+                ? Object.entries(value).map(([k, v]) => `${k}: ${v}`).join(' | ') 
+                : value;
+
             return `
                 <div class="stat-card-small">
                     <span>${key.replace(/_/g, ' ')}</span>
-                    <p>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}</p>
+                    <p>${displayValue}</p>
                 </div>
             `;
         }).join('');
 
+        // 3. Inyectar todo
         container.innerHTML = `
             <h3>Habilidades Técnicas</h3>
             <div class="skills-grid">${skillsHtml}</div>
@@ -43,19 +52,36 @@ async function cargarDashboard() {
             <div class="metrics-grid">${metricsHtml}</div>
         `;
 
+        // 4. Configurar Gráficos
         const labels = skills.data.map(i => i.name);
         const scores = skills.data.map(i => i.score);
         
+        // Gráfica de Barras
         new Chart(document.getElementById('barChart'), {
             type: 'bar',
             data: { labels, datasets: [{ label: 'Nivel (%)', data: scores, backgroundColor: '#36a2eb' }] },
             options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
         });
 
+        // Gráfica de Pastel (Dominancia)
         new Chart(document.getElementById('pieChart'), {
             type: 'pie',
             data: { labels, datasets: [{ data: scores, backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'] }] },
             options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // Nueva Gráfica de Dona (Proyectos por Lenguaje)
+        const langData = metrics.proyectos_por_lenguaje;
+        new Chart(document.getElementById('langChart'), {
+            type: 'doughnut',
+            data: { 
+                labels: Object.keys(langData), 
+                datasets: [{ 
+                    data: Object.values(langData), 
+                    backgroundColor: ['#f1e05a', '#f34b7d', '#b07219', '#e34c26', '#4f5d95', '#3572A5', '#3178c6', '#c6538c'] 
+                }] 
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
         
     } catch (e) {
