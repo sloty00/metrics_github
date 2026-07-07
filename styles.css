@@ -1,0 +1,75 @@
+/* 1. Estructura General */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 2rem;
+    background: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 2. Secciones con "Aire" */
+section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 2.5rem;
+}
+
+h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+
+/* 3. Gráficas (Ajuste para que no se vean gigantes) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.chart-wrapper {
+    height: 300px;
+    width: 100%;
+}
+
+/* 4. Habilidades (Diseño en lista o cuadrícula más limpia) */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: #fcfcfc;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* 5. Métricas Generales (Tarjetas pequeñas) */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-card-small {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.stat-card-small span { font-size: 0.8rem; color: #777; text-transform: uppercase; }
+.stat-card-small p { font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0 0 0; }
+
+/* 6. Footer y Trofeos */
+footer { text-align: center; margin-top: 3rem; color: #666; }
+.trophies-section { text-align: center; padding: 2rem; background: #fff; border-radius: 10px; margin-top: 2rem; }
