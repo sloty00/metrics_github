@@ -2,69 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Métricas sloty00</title>
+    <!-- Vinculación del nuevo archivo CSS -->
+    <link rel="stylesheet" href="styles.css">
     <!-- Incluimos Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
-        .stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 1.5rem; 
-        }
-        .stat-card { 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            overflow: hidden; 
-        }
-        .stat-card p { 
-            word-wrap: break-word; 
-            overflow-wrap: break-word;
-            font-weight: bold;
-        }
-        /* Contenedor específico para los gráficos */
-        .chart-wrapper { height: 250px; width: 100%; margin-bottom: 1rem; }
-        footer { margin-top: 3rem; text-align: center; color: #666; font-size: 0.9rem; }
-        .badges { margin-top: 10px; display: flex; justify-content: center; gap: 8px; }
-    </style>
 </head>
 <body>
+
+<main>
     <h1>Dashboard de Métricas</h1>
-    <h2>Metricas en tiempo real</h2>
 
-    <!-- Estos son los dos contenedores para los gráficos -->
-    <div class="stats-grid" style="margin-bottom: 2rem;">
-        <div class="stat-card">
-            <h3>Habilidades (Progreso)</h3>
-            <div class="chart-wrapper"><canvas id="barChart"></canvas></div>
+    <!-- Sección de Gráficos -->
+    <section>
+        <h2>Métricas en tiempo real</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Habilidades (Progreso)</h3>
+                <div class="chart-wrapper"><canvas id="barChart"></canvas></div>
+            </div>
+            <div class="stat-card">
+                <h3>Dominancia</h3>
+                <div class="chart-wrapper"><canvas id="pieChart"></canvas></div>
+            </div>
         </div>
-        <div class="stat-card">
-            <h3>Dominancia</h3>
-            <div class="chart-wrapper"><canvas id="pieChart"></canvas></div>
-        </div>
-    </div>
-<br>
-    <!-- El script inyectará las tarjetas aquí (tu lógica original) -->
-    <div id="dashboard-container" class="stats-grid">Cargando datos desde GitHub...</div>
+    </section>
 
-    <!-- Nueva sección de Trofeos -->
-    <div style="text-align: center; margin-top: 3rem;">
+    <!-- Sección inyectada por app.js -->
+    <section id="dashboard-container">
+        <p>Cargando datos desde GitHub...</p>
+    </section>
+
+    <!-- Sección de Trofeos -->
+    <section class="trophies-section">
         <h3>Mis Trofeos de GitHub</h3>
-        <img src="https://github-trophies.vercel.app/?username=sloty00&theme=transparent&no-frame=false&no-bg=false&margin-w=4" 
+        <img src="https://github-trophies.vercel.app/?username=sloty00&theme=transparent&no-frame=false&no-bg=false&margin-w=4&rank=A,AA,AAA,S,SS,SSS" 
              alt="Trofeos de sloty00" 
              style="max-width: 100%; height: auto;">
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 sloty00. Todos los derechos reservados.</p>
+    <div class="badges" style="display: flex; justify-content: center; gap: 8px; margin-top: 10px;">
+        <img src="https://img.shields.io/badge/GitHub%20API-Data-black?logo=github" alt="GitHub API">
+        <img src="https://img.shields.io/badge/Python-Automation-blue?logo=python" alt="Python">
+        <img src="https://img.shields.io/badge/Frontend-JavaScript-yellow?logo=javascript" alt="JavaScript">
+        <img src="https://img.shields.io/badge/Deploy-GitHub%20Pages-green?logo=githubpages" alt="GitHub Pages">
     </div>
-    <footer>
-        <p>&copy; 2026 sloty00. Todos los derechos reservados.</p>
-        <div class="badges">
-            <img src="https://img.shields.io/badge/GitHub%20API-Data-black?logo=github" alt="GitHub API">
-            <img src="https://img.shields.io/badge/Python-Automation-blue?logo=python" alt="Python">
-            <img src="https://img.shields.io/badge/Frontend-JavaScript-yellow?logo=javascript" alt="JavaScript">
-            <img src="https://img.shields.io/badge/Deploy-GitHub%20Pages-green?logo=githubpages" alt="GitHub Pages">
-        </div>
-    </footer>
-    <script src="app.js"></script>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
