@@ -1,20 +1,20 @@
 {
     "seguidores": 3,
-    "total_repos": 56,
+    "total_repos": 59,
     "estrellas_recibidas": 61,
     "forks_totales": 1,
     "issues_creados": 49,
-    "total_commits": 3614,
-    "antiguedad": "9 a\u00f1os y 305 d\u00edas",
+    "total_commits": 3637,
+    "antiguedad": "9 a\u00f1os y 306 d\u00edas",
     "proyectos_por_lenguaje": {
         "JavaScript": 27,
         "C++": 9,
         "Java": 13,
-        "HTML": 4,
+        "HTML": 5,
         "PHP": 1,
         "Python": 2,
         "TypeScript": 1,
         "SCSS": 1
     },
-    "ultima_actualizacion": "2026-06-25T12:44:06Z"
+    "ultima_actualizacion": "2026-07-12T01:44:03Z"
 }
