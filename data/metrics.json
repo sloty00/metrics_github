@@ -1,20 +1,11 @@
 {
-    "seguidores": 6,
-    "total_repos": 61,
-    "estrellas_recibidas": 67,
-    "forks_totales": 7,
-    "issues_creados": 55,
-    "total_commits": 4253,
-    "antiguedad": "9 a\u00f1os y 328 d\u00edas",
-    "proyectos_por_lenguaje": {
-        "HTML": 5,
-        "C++": 9,
-        "Java": 13,
-        "JavaScript": 29,
-        "Python": 3,
-        "PHP": 1,
-        "TypeScript": 1,
-        "SCSS": 1
-    },
-    "ultima_actualizacion": "2026-07-18T22:01:04Z"
+    "seguidores": 0,
+    "total_repos": 0,
+    "estrellas_recibidas": 0,
+    "forks_totales": 0,
+    "issues_creados": 0,
+    "total_commits": 0,
+    "antiguedad": "Desconocida",
+    "proyectos_por_lenguaje": {},
+    "ultima_actualizacion": null
 }
